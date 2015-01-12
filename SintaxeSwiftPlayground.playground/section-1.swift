@@ -262,68 +262,79 @@ for item in listaCompras {
     println(item)
 }
 
-
-
 /**********************************************
     Dicionarios
 **********************************************/
 
-//Dicionários são coleções de item pares chave-valor
-var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
-var airports2 = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+//Inicialização
+var estados: [String: String] = ["BA": "Bahia","SP": "São Paulo", "RJ": "Rio de Janeiro"]
+var estados2 = ["BA": "Bahia","SP": "São Paulo", "RJ": "Rio de Janeiro"]
 
 //Dicionários vazios
-var namesOfIntegers = [Int: String]()
-namesOfIntegers[16] = "sixteen"
-// namesOfIntegers now contains 1 key-value pair
-namesOfIntegers = [:]
-// namesOfIntegers is once again an empty dictionary of type [Int: String]
+var dicVazio = [:]
+var dicVazioTipado: [Int: String] = [:]
 
-if airports.isEmpty {
-    println("The airports dictionary is empty.")
+//verifica se um dicionário está vazio
+if estados.isEmpty {
+    println("Dicionário de estados esta vazio.")
 } else {
-    println("The airports dictionary is not empty.")
+    println("Dicionário de estados NAO esta vazio.")
 }
 
-//Quantidade de itens
-println("The airports dictionary contains \(airports.count) items.")
+//Trabalhando com itens
 
-//Inserindo itens
-airports["LHR"] = "London"
-
-
-//atualizando um valor
-
-airports["LHR"] = "London Heathrow"
-airports.updateValue("Dublin Airport", forKey: "DUB")
-
-//verificando se uma chave esta presente
-if let airportName = airports["DUB"] {
-    println("The name of the airport is \(airportName).")
+//Verificando se uma chave está presente para utilizá-la
+if let estado = estados["RJ"] {
+    println("O nome do estado eh \(estado).")
 } else {
-    println("That airport is not in the airports dictionary.")
+    println("Este estado nao esta no dicionário.")
 }
 
-//remoção de item
-airports["APL"] = "Apple International"
-airports["APL"] = nil
-airports.removeValueForKey("DUB")
+//Quantidade de itens em um dicionário
+println("O dicionario contem \(estados.count) items.")
 
+//Inserindo/atualizando um item
+estados["MG"] = "Minas Gerais"
+estados.updateValue("S. Paulo", forKey: "SP")
+println(estados["SP"])
 
-//iteração
-for (airportCode, airportName) in airports {
-    println("\(airportCode): \(airportName)")
+//Remoção de item
+estados["RJ"] = nil
+estados.removeValueForKey("BA")
+
+//Iteração
+for (siglaEstado, nomeEstado) in estados {
+    println("\(siglaEstado): \(nomeEstado)")
 }
 
-//iteração somente nas chaves
-for airportCode in airports.keys {
-    println("Airport code: \(airportCode)")
+//Iteração somente nas chaves
+for siglaEstado in estados.keys {
+    println("Sigla do estado: \(siglaEstado)")
 }
 
-//iteração somente nos valores
-for airportName in airports.values {
-    println("Airport name: \(airportName)")
+//Iteração somente nos valores
+for nomeEstado in estados.values {
+    println("Nome do estado: \(nomeEstado)")
 }
+
+/**********************************************
+Loopings - While
+**********************************************/
+
+var count = 1
+
+//while
+while count <= 15 {
+    println("count is \(count)")
+    count++
+}
+
+//do-while
+count = 1
+do {
+    println("count is \(count)")
+    count++
+} while count < 3
 
 /**********************************************
     Loopings - FOR
@@ -331,7 +342,7 @@ for airportName in airports.values {
 
 //FOR
 for var index = 0; index < 3; ++index {
-    println("index is \(index)")
+    println("index é \(index)")
 }
 
 //FOR-IN com range
@@ -351,31 +362,207 @@ for nome in nomes {
 }
 
 //FOR-IN Dicionarios
-let numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]
-for (animalName, legCount) in numberOfLegs {
-    println("\(animalName)s have \(legCount) legs")
+let pessoas = ["Joao": 25, "Maria": 18, "Fernanda": 34]
+for (nomePessoa, idade) in pessoas {
+    println("\(nomePessoa) tem \(idade) anos")
 }
 
 /**********************************************
-    Loopings - While
+    Enumeradores
 **********************************************/
-
-var count = 1
-
-//while
-while count < 3 {
-    println("count is \(count)")
-    count++
+enum Bussola {
+    case Norte
+    case Sul
+    case Leste
+    case Oeste
 }
 
-//do-while
-count = 1
-do {
-    println("count is \(count)")
-    count++
-} while count < 3
+var direcao = Bussola.Norte
+direcao = .Sul
 
 /**********************************************
-    Loopings - Dicionarios
+    Funções
 **********************************************/
+
+//Funções sem parâmetro e retorno
+func fazAlgo() {
+    return
+}
+
+fazAlgo()
+
+//Funções com retorno
+func fazAlgoComRetorno() -> Int {
+    return 0
+}
+
+let x1 = fazAlgoComRetorno()
+
+//Funções com parâmetro
+func fazAlgoComParametro(a:Int) -> Int {
+    return a
+}
+
+let x2 = fazAlgoComParametro(2)
+
+//Funções com mais de um parâmetro
+func soma(a:Int, b:Int) -> Int {
+    return a+b
+}
+
+soma(1,5)
+
+//Funções com mais de um retorno
+func fazAlgoComVariosRetornos(a:Int) -> (x:Int, y:Int) {
+    return (0,1)
+}
+
+let coordenada = fazAlgoComVariosRetornos(0)
+println("\(coordenada.x) e \(coordenada.y)")
+
+//Funções com nome de parâmetro externo
+
+//tem o objetivo de deixar claro o propósito dos parâmetros
+func idadePessoa(nome a:String, idade b:Int) -> String {
+    return "\(a) tem \(b) anos"
+}
+
+let pessoa = idadePessoa(nome: "Joao", idade: 20)
+println(pessoa)
+
+/**********************************************
+    Classes e objetos
+**********************************************/
+
+class Veiculo {
+    
+    //propriedade
+    var velocidadeAtual : Int
+
+    //inicializador
+    init(){
+        velocidadeAtual = 0
+    }
+    
+    //métodos de classe (estáticos)
+    class func alerta() ->  String {
+        return "Se beber não dirija"
+    }
+    
+    //métodos de instância
+    func descricao() -> String{
+        return "Veículo"
+    }
+}
+
+//Instância
+var minhaMoto = Veiculo()
+minhaMoto.velocidadeAtual = 100
+
+//Invocando métodos
+println(Veiculo.alerta())
+println(minhaMoto.descricao())
+
+//Criando subclasses e sobrescrevendo métodos
+class Carro: Veiculo {
+    
+    var marchas = 0
+    var modelo = ""
+    
+    override func descricao() -> String {
+        return super.descricao() + " com \(marchas) marchas"
+    }
+}
+
+let meuCarro = Carro()
+meuCarro.marchas = 5
+meuCarro.modelo = "Fit"
+println(meuCarro.descricao())
+
+//Verificando se um objeto pertence a uma classe
+
+var veiculos = [meuCarro, minhaMoto]
+for item in veiculos {
+    if item is Carro {
+        println("é um carro")
+    }
+    else{
+        println("é outro veículo")
+    }
+}
+
+//Downcasting
+veiculos = [meuCarro, minhaMoto]
+for item in veiculos {
+    if let carro = item as? Carro {
+          println("É um \(carro.modelo)")
+    }
+}
+
+//Classes implementando protocolo
+class NomeClasse : UITableView, UITextFieldDelegate { }
+
+/**********************************************
+    Controle de acesso: public, internal e private
+**********************************************/
+
+//public
+public class UmaClassePublica {}
+public var variavelPublica = 0
+public func metodoPublico() {}
+
+//internal
+internal class UmaClasseInterna {}
+internal let variavelInterna = 0
+internal func metodoInterno() {}
+
+//private
+private class UmaClassePrivada {}
+private var variavelPrivada = 0
+private func metodoPrivado() {}
+
+/**********************************************
+    Gerenciamento de memória
+**********************************************/
+
+//Contagem de referência
+class Person {
+    let name: String
+    var apartment: Apartment?
+    var card: CreditCard?
+
+    init(name: String) {
+        self.name = name
+    }
+}
+
+class Apartment {
+    let number: Int = 0
+    weak var tenant: Person? //relacionamento fraco, evita referências cíclicas
+}
+
+class CreditCard {
+    let number: Int
+    unowned let customer: Person //relacionamento unowned, os dois objetos devem ter o mesmo período de vida
+
+    init(number: Int, customer: Person) {
+        self.number = number
+        self.customer = customer
+    }
+}
+
+//Contagem de referência
+var reference1: Person?
+reference1 = Person(name: "John Appleseed")
+
+var reference2: Person?
+reference2 = reference1
+
+reference1 = nil //enquanto existir uma referência, o objeto nao é desalocado
+reference2 = nil //agora o objeto pode ser desalocado
+
+
+
+
+
 
